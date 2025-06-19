@@ -44,3 +44,7 @@ A continuación se describen los componentes principales, sus definiciones y có
 - **Batch Normalization:** Estabiliza y acelera el entrenamiento.
 - **Early Stopping:** Detiene el entrenamiento si la validación deja de mejorar.
 - **Ajuste de hiperparámetros:** Probar diferentes combinaciones de los parámetros anteriores.
+
+# Implemento
+Aumentar la Capacidad del Modelo (Más Filtros y Neuronas)
+Un modelo con más filtros y neuronas puede aprender patrones más complejos y detallados de las imágenes, lo que a menudo conduce a una mayor precisión.
