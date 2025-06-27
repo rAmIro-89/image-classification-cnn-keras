@@ -235,3 +235,23 @@ Los callbacks de Keras fueron fundamentales para:
 - *Garantizar* que se guarde el mejor modelo
 
 Esto demuestra que un buen entrenamiento no solo depende de la arquitectura, sino también de una estrategia de entrenamiento inteligente.
+
+################################################
+
+Mejoras para aumentar la precisión
+Se aumentó el número de epochs a 100 y el batch size a 256.
+Se agregaron capas adicionales (más filtros, batch normalization, dropout) para mejorar la generalización.
+Se implementaron callbacks avanzados: EarlyStopping, ModelCheckpoint y ReduceLROnPlateau.
+Estos cambios se realizaron para mejorar la precisión y reducir el overfitting.
+Predicción de imágenes externas
+Se implementó la función predecir_imagen_externa, que permite cargar y clasificar imágenes externas (fotos, dibujos, etc.) en una de las 10 clases del modelo entrenado.
+
+Funcionamiento:
+
+Carga la imagen y la redimensiona a 32x32 píxeles.
+Convierte la imagen a un array NumPy y la normaliza.
+Agrega una dimensión extra para simular un batch.
+Realiza la predicción con el modelo entrenado.
+Muestra la imagen junto con la clase predicha y el porcentaje de confianza.
+Uso:
+La función se utiliza en un bucle que recorre todas las imágenes de una carpeta (pics_procesadas) y muestra la predicción para cada una.
