@@ -7,55 +7,81 @@ Para agilizar el trabajo en equipo decidimos hacer el desarrollo en un ide local
 
 ### Versiones de Software Recomendadas
 
-*Python:* 3.9.18  
-Versión más estable para Machine Learning con máxima compatibilidad de librerías
+*Python:* 3.9.21  
+Versión utilizada en el entorno actual.
 
 ### Librerías Principales y Versiones
 
 | Librería | Versión | Propósito |
 |----------|---------|-----------|
-| *tensorflow* | 2.12.0 | Framework principal para deep learning y CNN |
-| *keras* | 2.12.0 | API de alto nivel para redes neuronales (incluida en TF) |
+| *tensorflow* | 2.10.0 | Framework principal para deep learning y CNN |
+| *keras* | 2.10.0 | API de alto nivel para redes neuronales (incluida en TF) |
 | *numpy* | 1.24.3 | Operaciones numéricas y manejo de arrays |
-| *pandas* | 2.0.3 | Análisis y manipulación de datos |
-| *matplotlib* | 3.7.2 | Visualización de gráficos y resultados |
-| *pillow* | 10.0.0 | Procesamiento y manipulación de imágenes |
-| *scikit-learn* | 1.3.0 | Métricas de evaluación y herramientas ML |
+| *pandas* | 1.5.3 | Análisis y manipulación de datos |
+| *matplotlib* | 3.5.2 | Visualización de gráficos y resultados |
+| *pillow* | 9.2.0 | Procesamiento y manipulación de imágenes |
+| *scikit-learn* | 1.1.3 | Métricas de evaluación y herramientas ML |
+| *os* | builtin | Manejo de archivos y carpetas |
+| *random* | builtin | Selección aleatoria de muestras |
+| *tensorflow.keras.callbacks* | 2.10.0 | Callbacks para optimización del entrenamiento |
+| *tensorflow.keras.preprocessing.image* | 2.10.0 | Carga y preprocesamiento de imágenes externas |
 
-### Configuración GPU (Opcional)
+#### Módulos y funciones importadas en el código principal:
+- `import tensorflow as tf`
+- `from tensorflow import keras`
+- `import numpy as np`
+- `import pandas as pd`
+- `import matplotlib.pyplot as plt`
+- `from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau`
+- `from tensorflow.keras.preprocessing import image`
+- `import os`
+- `import random`
 
-Para acelerar el entrenamiento con GPU NVIDIA:
+### Explicación de los parámetros de los Callbacks utilizados
 
-| Componente | Versión | Descripción |
-|------------|---------|-------------|
-| *CUDA Toolkit* | 11.8 | Plataforma de computación paralela de NVIDIA |
-| *cuDNN* | 8.6.0 | Librería de redes neuronales profundas para GPU |
+#### EarlyStopping
+- **monitor:** 'val_loss' — Supervisa la pérdida de validación para decidir cuándo detener el entrenamiento.
+- **patience:** 10 — Número de épocas a esperar sin mejora antes de detener el entrenamiento.
+- **restore_best_weights:** True — Restaura los pesos del modelo al mejor valor encontrado durante el entrenamiento.
+
+#### ModelCheckpoint
+- **filepath:** 'mejor_modelo.keras' — Ruta y nombre del archivo donde se guarda el modelo.
+- **monitor:** 'val_accuracy' — Supervisa la precisión de validación para guardar el mejor modelo.
+- **save_best_only:** True — Solo guarda el modelo si mejora la métrica monitoreada.
+- **mode:** 'max' — Busca maximizar la métrica monitoreada (en este caso, la precisión).
+
+#### ReduceLROnPlateau
+- **monitor:** 'val_loss' — Supervisa la pérdida de validación para reducir el learning rate si no mejora.
+- **factor:** 0.2 — Multiplica el learning rate actual por este factor cuando se activa.
+- **patience:** 5 — Número de épocas a esperar sin mejora antes de reducir el learning rate.
+- **min_lr:** 0.00001 — Valor mínimo permitido para el learning rate.
 
 ### Instalación del Entorno
 
 *Crear entorno con conda:*
-bash
+```bash
 # Crear entorno optimizado
-conda create -n ml_stable python=3.9.18 -y
+conda create -n ml_stable python=3.9.21 -y
 conda activate ml_stable
+```
 
 # Instalar librerías principales
-pip install tensorflow==2.12.0
+pip install tensorflow==2.10.0
 pip install numpy==1.24.3
-pip install pandas==2.0.3
-pip install matplotlib==3.7.2
-pip install pillow==10.0.0
-pip install scikit-learn==1.3.0
+pip install pandas==1.5.3
+pip install matplotlib==3.5.2
+pip install pillow==9.2.0
+pip install scikit-learn==1.1.3
 
 # Para soporte GPU (opcional)
 conda install cudatoolkit=11.8 cudnn=8.6.0 -c conda-forge -y
 
-
 *Verificar instalación:*
-python
+```python
 import tensorflow as tf
 print(f"TensorFlow: {tf.__version__}")
 print(f"GPUs disponibles: {len(tf.config.list_physical_devices('GPU'))}")
+```
 
 
 ### Dataset

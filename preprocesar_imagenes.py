@@ -58,8 +58,8 @@ def preprocesar_directorio_con_recorte(directorio_entrada, directorio_salida, ta
 
 
 if __name__ == '__main__':
-    CARPETA_ORIGINALES = r'E:\Procesamiento de Aprendizaje Automatico\Tp\pics'
-    CARPETA_PROCESADAS = r'E:\Procesamiento de Aprendizaje Automatico\Tp\pics_procesadas'
+    CARPETA_ORIGINALES = r'E:\Procesamiento de Aprendizaje Automatico\Tp\pichichas'
+    CARPETA_PROCESADAS = r'E:\Procesamiento de Aprendizaje Automatico\Tp\pichichas_procesadas'
     
     # Llama a la nueva función
     preprocesar_directorio_con_recorte(CARPETA_ORIGINALES, CARPETA_PROCESADAS)
