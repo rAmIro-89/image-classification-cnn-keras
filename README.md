@@ -1,43 +1,91 @@
-# cnn
-Este trabajo practico es de la materia de Procesamiento del Aprendizaje Automatico, esta hecho por Zoe Mlinarevic Medl y Ramiro Ottone.
 
-Para agilizar el trabajo en equipo decidimos hacer el desarrollo en un ide local como vscode y subir los cambios a un gestor de versiones como github.
+# Image Classification with CNNs (CIFAR-10)
 
-## Requisitos y Configuración del Entorno
+This is a professional deep learning project for image classification using Convolutional Neural Networks (CNNs) on the CIFAR-10 dataset. The repository is structured for clarity, reproducibility, and extensibility, and is intended for my personal data science portfolio.
 
-### Versiones de Software Recomendadas
+## Project Overview
+This project demonstrates the full workflow for image classification using deep learning. It includes data preprocessing, model development, training, evaluation, and error analysis. The code is modular and ready for experimentation and future improvements.
 
-*Python:* 3.9.21  
-Versión utilizada en el entorno actual.
+## Dataset Description
+- **Dataset:** CIFAR-10
+- **Classes:** 10 (airplane, automobile, bird, cat, deer, dog, frog, horse, ship, truck)
+- **Images:** 60,000 color images (32x32 pixels)
+- **Source:** [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar.html)
 
-### Librerías Principales y Versiones
+## Model Architecture
+- Baseline CNN: Multiple convolutional and pooling layers, followed by dense layers.
+- Advanced CNN: Includes regularization, data augmentation, and advanced callbacks.
+- All models implemented in TensorFlow/Keras.
 
-| Librería | Versión | Propósito |
-|----------|---------|-----------|
-| *tensorflow* | 2.10.0 | Framework principal para deep learning y CNN |
-| *keras* | 2.10.0 | API de alto nivel para redes neuronales (incluida en TF) |
-| *numpy* | 1.24.3 | Operaciones numéricas y manejo de arrays |
-| *pandas* | 1.5.3 | Análisis y manipulación de datos |
-| *matplotlib* | 3.5.2 | Visualización de gráficos y resultados |
-| *pillow* | 9.2.0 | Procesamiento y manipulación de imágenes |
-| *scikit-learn* | 1.1.3 | Métricas de evaluación y herramientas ML |
-| *os* | builtin | Manejo de archivos y carpetas |
-| *random* | builtin | Selección aleatoria de muestras |
-| *tensorflow.keras.callbacks* | 2.10.0 | Callbacks para optimización del entrenamiento |
-| *tensorflow.keras.preprocessing.image* | 2.10.0 | Carga y preprocesamiento de imágenes externas |
+## Training Process
+- Data preprocessing and augmentation
+- Model training with early stopping and checkpointing
+- Hyperparameter tuning
+- Training and validation metrics logged
 
-#### Módulos y funciones importadas en el código principal:
-- `import tensorflow as tf`
-- `from tensorflow import keras`
-- `import numpy as np`
-- `import pandas as pd`
-- `import matplotlib.pyplot as plt`
-- `from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau`
-- `from tensorflow.keras.preprocessing import image`
-- `import os`
-- `import random`
+## Evaluation Results
+- Accuracy, loss, and confusion matrix
+- Error analysis with misclassified images
+- Visualizations of training curves and results
 
-### Explicación de los parámetros de los Callbacks utilizados
+## Environment / Dependencies
+- Python 3.9+
+- TensorFlow, Keras, NumPy, Pandas, Matplotlib, Pillow, scikit-learn, Jupyter, python-dotenv
+- See `requirements.txt` for exact versions
+
+## How to Run the Project
+1. Clone the repository
+2. Install dependencies: `pip install -r requirements.txt`
+3. Download CIFAR-10 data or place your images in `data/raw/`
+4. Run notebooks in `notebooks/` for EDA, training, and evaluation
+5. Use scripts in `src/` for modular pipeline execution
+
+## Project Structure
+```
+├── data/
+│   ├── raw/
+│   └── processed/
+├── notebooks/
+│   ├── 01_exploratory_data_analysis.ipynb
+│   ├── 02_cnn_training.ipynb
+│   └── 03_evaluation_and_error_analysis.ipynb
+├── src/
+│   ├── data/
+│   │   ├── dataset_loader.py
+│   │   ├── preprocessing.py
+│   │   └── preprocesar_imagenes.py
+│   ├── models/
+│   │   ├── cnn_baseline.py
+│   │   └── cnn_advanced.py
+│   ├── training/
+│   │   └── train.py
+│   ├── evaluation/
+│   │   └── evaluate.py
+│   └── utils/
+│       ├── config.py
+│       └── callbacks.py
+├── models/
+│   └── saved/
+│       └── mejor_modelo.keras
+├── reports/
+│   └── figures/
+├── docs/
+│   ├── architecture.md
+│   └── experiments_log.md
+├── requirements.txt
+├── .gitignore
+└── README.md
+```
+
+## Future Improvements
+- Add more advanced architectures (ResNet, EfficientNet)
+- Integrate automated hyperparameter optimization
+- Expand error analysis and reporting
+- Deploy model as a web service
+- Add unit tests and CI/CD pipeline
+
+---
+This repository is fully individual and intended for my professional portfolio.
 
 #### EarlyStopping
 - **monitor:** 'val_loss' — Supervisa la pérdida de validación para decidir cuándo detener el entrenamiento.

@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+*.log
+*.sqlite3
+*.db
+*.h5
+*.keras
+*.pkl
+*.ckpt
+*.env
+.env
+venv/
+ENV/
+.ipynb_checkpoints/
+.DS_Store
+*.swp
+*.bak
+*.tmp
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# VS Code
+.vscode/
+
+# Data
+/data/raw/*
+/data/processed/*
+!/data/raw/.gitkeep
+!/data/processed/.gitkeep
+
+# Models
+/models/saved/*
+!/models/saved/.gitkeep
+
+# Reports
+/reports/figures/*
+!/reports/figures/.gitkeep

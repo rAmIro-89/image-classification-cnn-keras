@@ -1,0 +1,9 @@
+tensorflow
+keras
+numpy
+pandas
+matplotlib
+pillow
+scikit-learn
+jupyter
+python-dotenv
