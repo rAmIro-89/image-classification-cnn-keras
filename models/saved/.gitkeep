@@ -1,0 +1,5 @@
+# Saved Models
+
+This directory contains trained model files.
+
+Note: Large model files (*.h5, *.hdf5) are excluded from git by .gitignore

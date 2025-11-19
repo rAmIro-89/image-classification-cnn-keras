@@ -1,0 +1,36 @@
+# Core ML/DL frameworks
+tensorflow>=2.12.0,<3.0.0
+keras>=2.12.0
+
+# Data manipulation and analysis
+numpy>=1.23.0
+pandas>=1.5.0
+
+# Visualization
+matplotlib>=3.5.0
+seaborn>=0.12.0
+
+# Image processing
+Pillow>=9.0.0
+opencv-python>=4.7.0
+
+# Scientific computing
+scikit-learn>=1.2.0
+scipy>=1.10.0
+
+# Progress bars
+tqdm>=4.65.0
+
+# Configuration management
+pyyaml>=6.0
+
+# Jupyter notebooks
+jupyter>=1.0.0
+ipykernel>=6.0.0
+
+# Testing
+pytest>=7.0.0
+pytest-cov>=4.0.0
+
+# Utilities
+python-dotenv>=1.0.0
