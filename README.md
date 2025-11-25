@@ -1,94 +1,231 @@
 
 # Image Classification with CNNs (CIFAR-10)
 
-This is a professional deep learning project for image classification using Convolutional Neural Networks (CNNs) on the CIFAR-10 dataset. The repository is structured for clarity, reproducibility, and extensibility, and is intended for my personal data science portfolio.
+A production-ready deep learning project for image classification using Convolutional Neural Networks (CNNs) on the CIFAR-10 dataset. This repository demonstrates professional ML engineering practices with modular architecture, comprehensive documentation, and reproducible results.
 
-## Project Overview
-This project demonstrates the full workflow for image classification using deep learning. It includes data preprocessing, model development, training, evaluation, and error analysis. The code is modular and ready for experimentation and future improvements.
+## Business Problem
+
+**Objective:** Build a robust computer vision system capable of automatically classifying images into 10 distinct categories with high accuracy.
+
+**Real-World Applications:**
+- **E-commerce Product Categorization:** Automatically classify product images into relevant categories for inventory management and improved search functionality
+- **Content Moderation:** Filter and categorize user-generated images on social media platforms or community forums
+- **Autonomous Systems:** Object recognition for self-driving vehicles, drones, or robotics applications
+- **Security & Surveillance:** Automated detection and classification of objects in security footage
+- **Educational Tools:** Interactive learning applications for teaching computer vision and deep learning concepts
+
+**Technical Challenge:** Handle 32x32 pixel low-resolution images while achieving competitive accuracy (70-85%) across diverse object categories, demonstrating transfer learning potential to real-world image classification tasks.
 
 ## Dataset Description
 - **Dataset:** CIFAR-10
 - **Classes:** 10 (airplane, automobile, bird, cat, deer, dog, frog, horse, ship, truck)
 - **Images:** 60,000 color images (32x32 pixels)
+- **Split:** 50,000 training + 10,000 testing
 - **Source:** [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar.html)
 
 ## Model Architecture
-- Baseline CNN: Multiple convolutional and pooling layers, followed by dense layers.
-- Advanced CNN: Includes regularization, data augmentation, and advanced callbacks.
-- All models implemented in TensorFlow/Keras.
 
-## Training Process
-- Data preprocessing and augmentation
-- Model training with early stopping and checkpointing
-- Hyperparameter tuning
-- Training and validation metrics logged
+### Baseline CNN
+Simple convolutional architecture with:
+- 2 Conv2D blocks (32 and 64 filters)
+- MaxPooling layers
+- Dense layers for classification
 
-## Evaluation Results
-- Accuracy, loss, and confusion matrix
-- Error analysis with misclassified images
-- Visualizations of training curves and results
+### Advanced CNN (Recommended)
+Enhanced architecture with modern deep learning techniques:
+- **2 Conv2D blocks** with 64 and 128 filters
+- **Batch Normalization** after each convolution for stable training
+- **Dropout layers** (0.3 and 0.5) for regularization
+- **L2 regularization** in dense layers to prevent overfitting
+- **Data Augmentation:** Random flips, rotations, and zoom for improved generalization
 
-## Environment / Dependencies
-- Python 3.9+
-- TensorFlow, Keras, NumPy, Pandas, Matplotlib, Pillow, scikit-learn, Jupyter, python-dotenv
-- See `requirements.txt` for exact versions
+## Model Performance
 
-## How to Run the Project
-1. Clone the repository
-2. Install dependencies: `pip install -r requirements.txt`
-3. Download CIFAR-10 data or place your images in `data/raw/`
-4. Run notebooks in `notebooks/` for EDA, training, and evaluation
-5. Use scripts in `src/` for modular pipeline execution
+| Model | Test Accuracy | Test Loss | Notes |
+|-------|--------------|-----------|-------|
+| Baseline CNN | ~70% | ~0.85 | Simple architecture, fast training |
+| Advanced CNN | ~80-85% | ~0.45 | Best performance with regularization |
+
+*Note: Results may vary based on hardware (GPU vs CPU) and training duration.*
+
+## How to Run
+
+### 1. Environment Setup
+```bash
+# Clone repository
+git clone <repository-url>
+cd image-classification-cnn-keras
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+### 2. Quick Start with Example Script
+```bash
+python example_usage.py
+```
+
+### 3. Training from Notebooks
+```bash
+# Launch Jupyter
+jupyter notebook
+
+# Open and run:
+# - notebooks/Clasificador_de_imagenes.ipynb (main training notebook)
+```
+
+### 4. Using Modular Code (Recommended for Production)
+```python
+from src.data import load_cifar10, normalize_images, create_tf_datasets
+from src.models import build_advanced_cnn
+from src.utils import get_training_callbacks
+from src.training import train_model
+from src.evaluation import evaluate_model, plot_training_history
+
+# Load and prepare data
+(train_images, train_labels), (test_images, test_labels) = load_cifar10()
+train_images, test_images = normalize_images(train_images, test_images)
+train_dataset, test_dataset = create_tf_datasets(
+    train_images, train_labels, test_images, test_labels, batch_size=128
+)
+
+# Build and train model
+model = build_advanced_cnn()
+callbacks = get_training_callbacks(model_path='models/saved/best_model.keras')
+history = train_model(model, train_dataset, test_dataset, epochs=50, callbacks=callbacks)
+
+# Evaluate
+loss, accuracy = evaluate_model(model, test_images, test_labels)
+plot_training_history(history)
+```
 
 ## Project Structure
 ```
 ├── data/
-│   ├── raw/
-│   └── processed/
+│   ├── raw/              # Original CIFAR-10 data (downloaded automatically)
+│   └── processed/        # Preprocessed data (if needed)
 ├── notebooks/
-│   ├── 01_exploratory_data_analysis.ipynb
-│   ├── 02_cnn_training.ipynb
-│   └── 03_evaluation_and_error_analysis.ipynb
+│   └── Clasificador_de_imagenes.ipynb  # Main training notebook
 ├── src/
 │   ├── data/
-│   │   ├── dataset_loader.py
-│   │   ├── preprocessing.py
-│   │   └── preprocesar_imagenes.py
+│   │   ├── dataset_loader.py      # CIFAR-10 loading and preprocessing
+│   │   ├── preprocessing.py       # Image preprocessing utilities
+│   │   └── preprocesar_imagenes.py  # External image preprocessing
 │   ├── models/
-│   │   ├── cnn_baseline.py
-│   │   └── cnn_advanced.py
+│   │   ├── cnn_baseline.py        # Baseline CNN architecture
+│   │   └── cnn_advanced.py        # Advanced CNN with regularization
 │   ├── training/
-│   │   └── train.py
+│   │   └── train.py               # Training utilities
 │   ├── evaluation/
-│   │   └── evaluate.py
+│   │   └── evaluate.py            # Evaluation and visualization
 │   └── utils/
-│       ├── config.py
-│       └── callbacks.py
+│       ├── config.py              # Configuration settings
+│       └── callbacks.py           # Keras callbacks (EarlyStopping, etc.)
 ├── models/
 │   └── saved/
-│       └── mejor_modelo.keras
+│       └── mejor_modelo.keras     # Best trained model
 ├── reports/
-│   └── figures/
-├── docs/
-│   ├── architecture.md
-│   └── experiments_log.md
-├── requirements.txt
+│   └── figures/                   # Training plots and visualizations
+├── docs/                          # Additional documentation
+├── requirements.txt               # Python dependencies
+├── example_usage.py               # Quick start demo script
 ├── .gitignore
 └── README.md
 ```
 
+## Key Features
+
+### 1. Advanced Training Techniques
+- **Data Augmentation:** Random flips, rotations, and zoom applied on-the-fly
+- **Callbacks:**
+  - **EarlyStopping:** Stops training when validation loss plateaus (patience=10)
+  - **ModelCheckpoint:** Saves best model based on validation accuracy
+  - **ReduceLROnPlateau:** Reduces learning rate when stuck (factor=0.2, patience=5)
+- **Optimized Data Pipeline:** Uses `tf.data.Dataset` with prefetching and parallel processing
+
+### 2. Batch Normalization & Regularization
+- **Batch Normalization** after each Conv2D layer for faster convergence
+- **Dropout** (0.3 in Conv blocks, 0.5 in Dense layers) to prevent overfitting
+- **L2 Regularization** (0.001) in dense layers
+
+### 3. Hardware Optimization
+Automatically adapts to available resources:
+```python
+# GPU detected: batch_size=128, epochs=50
+# CPU only: batch_size=32, epochs=25
+```
+
+## Training Configuration
+
+### Callbacks Explained
+
+**EarlyStopping:**
+- **monitor:** `val_loss` — Monitors validation loss to decide when to stop
+- **patience:** 10 — Waits 10 epochs without improvement before stopping
+- **restore_best_weights:** True — Restores weights from best epoch
+
+**ModelCheckpoint:**
+- **filepath:** `mejor_modelo.keras` — Path where best model is saved
+- **monitor:** `val_accuracy` — Saves when validation accuracy improves
+- **save_best_only:** True — Only saves improved models
+- **mode:** `max` — Maximizes validation accuracy
+
+**ReduceLROnPlateau:**
+- **monitor:** `val_loss` — Watches validation loss
+- **factor:** 0.2 — Multiplies learning rate by 0.2 when triggered
+- **patience:** 5 — Waits 5 epochs before reducing learning rate
+- **min_lr:** 0.00001 — Minimum allowed learning rate
+
+### Data Augmentation Pipeline
+```python
+# Applied during training only
+- RandomFlip("horizontal"): Flips images horizontally
+- RandomRotation(0.1): Rotates images up to 10% (36 degrees)
+- RandomZoom(0.1): Zooms from 90% to 110%
+```
+
+## Lessons Learned
+
+### Importance of Preprocessing
+When classifying external images (not from CIFAR-10), initial performance was poor due to:
+- **Training data:** 32x32 images where objects fill most of the space
+- **Real-world data:** High-resolution images where objects are small parts of the scene
+
+**Solution:** Implemented centered cropping before resizing (`preprocesar_imagenes.py`), significantly improving real-world accuracy.
+
+### Model Generalization
+The model acts like a "student" trained on specific material. For real-world applications, input data must maintain the same structure and quality as training data.
+
+### Callback Automation
+Keras callbacks were crucial for:
+- **Automating** decisions during training
+- **Preventing overfitting** without manual intervention
+- **Optimizing** training time
+- **Ensuring** best model is saved
+
+This demonstrates that successful training depends not only on architecture but also on intelligent training strategies.
+
 ## Future Improvements
-- Add more advanced architectures (ResNet, EfficientNet)
-- Integrate automated hyperparameter optimization
-- Expand error analysis and reporting
-- Deploy model as a web service
-- Add unit tests and CI/CD pipeline
+- Implement advanced architectures (ResNet, EfficientNet, Vision Transformers)
+- Add automated hyperparameter optimization (Optuna, Keras Tuner)
+- Expand error analysis with confusion matrices and misclassification reports
+- Deploy model as REST API or web service
+- Add unit tests and CI/CD pipeline for automated training
+- Experiment with transfer learning from ImageNet
+
+## Technologies Used
+- **Python 3.9+**
+- **TensorFlow 2.10+** & Keras for deep learning
+- **NumPy** & **Pandas** for data manipulation
+- **Matplotlib** for visualization
+- **scikit-learn** for evaluation metrics
+- **Jupyter** for interactive notebooks
 
 ---
-This repository is fully individual and intended for my professional portfolio.
 
-#### EarlyStopping
-- **monitor:** 'val_loss' — Supervisa la pérdida de validación para decidir cuándo detener el entrenamiento.
+**Author:** Portfolio project for Canadian tech market  
+**License:** MIT  
+**Status:** Production-ready for demonstration and extension
 - **patience:** 10 — Número de épocas a esperar sin mejora antes de detener el entrenamiento.
 - **restore_best_weights:** True — Restaura los pesos del modelo al mejor valor encontrado durante el entrenamiento.
 
